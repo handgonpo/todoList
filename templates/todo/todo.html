@@ -1,0 +1,64 @@
+
+<!-- 
+name = models.CharField(max_length=100)
+description = models.TextField(blank=True)
+complete = models.BooleanField(default=False)
+exp = models.PositiveIntegerField(default=0)
+completed_at = models.DateTimeField(null=True, blank=True)
+created_at = models.DateTimeField(auto_now_add=True)
+updated_at = models.DateTimeField(auto_now=True) 
+
+-->
+
+<!-- QuerySet DB에서 가져온 모델 객체들의 리스트처럼 생긴것
+ {{ todos }} <- 이렇게 생긴것을 컨텍스트 데이터(context data)라고 한다.  
+1차 테스트 
+ -->
+
+<!-- 2차테스트
+    {% for todo in todos %}
+    {{ todo.name }} 제목
+    <br>
+    {{ todo.description }} 내용
+    <br>
+    {{ todo.complete }} 날짜
+    <br>
+    {{ todo.created_at }} 생성일
+{% endfor %} 
+
+-->
+
+<!--  3차테스트
+    {% for todo in todos %} <- 템플릿 태그 (Template Tags)
+    {{ todo.name }}
+    <br>
+
+    만약에 내용을 안쓴 경우 빈공백이 아닌 데이터가 없다고 표시하고 싶을때
+    {% if todo.description %}
+        {{ todo.description }}
+    {% else %}
+        No description
+    {% endif %} if종료를 반드시 해줘야 한다.
+
+    <br>
+    {{ todo.complete }}
+    <br>
+    {{ todo.created_at }}
+{% endfor %} 
+-->
+
+{% for todo in todos %}
+{{ todo.name }}
+<br>
+
+{% if todo.description %}
+    {{ todo.description }}
+{% else %}
+    No description
+{% endif %}
+
+<br>
+{{ todo.complete }}
+<br>
+{{ todo.created_at }}
+{% endfor %} 
