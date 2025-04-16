@@ -4,6 +4,12 @@ from rest_framework.response import Response
 from .serializers import TodoSerializer
 from .models import Todo
 
+# generics을 위해 모듈추가
+from rest_framework import generics
+# from rest_framework import status, generics -> 같은 모듈안에 있으므로 합치기
+
+
+# REST Framework_APIView
 class TodoListAPI(APIView):
     
     def get(self, request):
@@ -66,3 +72,31 @@ class TodoDeleteAPI(APIView):
             return Response({"error":"해당하는 todo가 없습니다."}, status=status.HTTP_404_NOT_FOUND)
         todo.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# REST Framework_GenericAPIView        
+class TodoGenericsListAPI(generics.ListAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
+class TodoGenericsCreateAPI(generics.CreateAPIView):
+    serializer_class = TodoSerializer
+
+
+class TodoGenericsRetrieveAPI(generics.RetrieveAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
+class TodoGenericsUpdateAPI(generics.UpdateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
+class TodoGenericsDeleteAPI(generics.DestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
+# REST Framework_ViewSets    
+  
