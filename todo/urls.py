@@ -1,6 +1,12 @@
-from django.urls import path
+from django.urls import path, include # include 추가
 from .apis import *
 from . import views  # views 모듈을 통째로 임포트
+
+# viewset을 위한 모듈 호출
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register("", TodoViewSet)
 
 # 127.0.0.1:8000/todo/
 urlpatterns = [
@@ -20,4 +26,7 @@ urlpatterns = [
     path("generics/retrieve/<int:pk>/", TodoGenericsRetrieveAPI.as_view()),
     path("generics/update/<int:pk>/", TodoGenericsUpdateAPI.as_view()),
     path("generics/delete/<int:pk>/", TodoGenericsDeleteAPI.as_view()),
+
+    # Viewsets
+    path("viewsets/", include(router.urls)),
 ]

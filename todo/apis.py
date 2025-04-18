@@ -8,6 +8,10 @@ from .models import Todo
 from rest_framework import generics
 # from rest_framework import status, generics -> 같은 모듈안에 있으므로 합치기
 
+# viewset을 위한 모듈추가
+from rest_framework import viewsets
+# from rest_framework import status, generics viewsets -> 같은 모듈안에 있으므로 합치기
+
 
 # REST Framework_APIView
 class TodoListAPI(APIView):
@@ -98,5 +102,18 @@ class TodoGenericsDeleteAPI(generics.DestroyAPIView):
     serializer_class = TodoSerializer
 
 
+# Generics list + create 
+class TodoGenericsListCreateAPI(generics.ListCreateAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+# Generics retriver + update + delete 
+class TodoGenericsRetrieveUpdateDeleteAPI(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer
+
+
 # REST Framework_ViewSets    
-  
+class TodoViewSet(viewsets.ModelViewSet):
+    queryset = Todo.objects.all()
+    serializer_class = TodoSerializer  
