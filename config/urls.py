@@ -9,4 +9,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path("todo/", include("todo.urls")), # 127.0.0.1:8000/todo/
+
+    # 127.0.0.1:8000/api/todo/
+    path("api/todo/", include("todo.api_urls")),
 ]
