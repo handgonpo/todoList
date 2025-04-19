@@ -1,0 +1,19 @@
+{% load static %} {# 로드경로: /static/  #}
+<!DOCTYPE html>
+<html lang="ko">
+{% include 'head.html' %}
+<body>
+    {% include 'header.html' %}
+    
+    {% block content %}{% endblock %}
+
+    {% include 'footer.html' %}
+
+    <!-------------공통 JS---------------->
+    <!-- Javascrips -->
+    <script src="{% static 'js/getCookie.js' %}"></script> <!--반드시 CSRF은 상단에 있어야 함 -->
+    <script src="{% static 'js/axiosInstance.js' %}"></script>
+    
+    {% block scripts %}{% endblock %}  {# 선택: 페이지별 JS 삽입용 #}
+</body>
+</html>
