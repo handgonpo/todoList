@@ -10,6 +10,12 @@
         
 </div>
 
+<!--너무 많은 데이터를 한 번에 주지 않도록 페이지 단위로 나눠주는 역할-->
+<div class="pagination">
+
+</div>
+
+{% comment %} 
 <script>
     $(document).ready(function(){
         axiosInstance.get("/api/todo/list/")
@@ -36,6 +42,130 @@
     function detailView(id){
         window.location.href = `/todo/${id}/`;
     }
+</script> 
+{% endcomment %}
+
+
+{% comment %} 페이지 네이션 추가 {% endcomment %}
+<script>
+    // 페이지가 로드되면 1페이지의 Todo 리스트를 불러옴
+    $(document).ready(function(){
+        loadTodoList(1);
+    });
+
+    // 특정 페이지의 Todo 리스트를 불러와 화면에 출력
+    function loadTodoList(page){
+
+        // 기존 Todo 리스트를 비움
+        $(".todocontainer").empty();
+
+        // API 요청: ?page=번호에 따라 해당 페이지 데이터 요청
+        axiosInstance.get(`/api/todo/viewsets/?page=${page}`)
+        .then(function(response){
+
+            // 응답 데이터에서 각 Todo 항목을 꺼내서 화면에 추가
+            for (var i = 0; i < response.data.data.length; i++){
+                var todo = response.data.data[i]
+                var todoElement = ``
+
+                // 완료된 Todo 항목이면 버튼 없이 출력
+                if (todo.complete === true){
+                    todoElement = `
+                    <div class="todo-item" onclick="detailView(${todo.id})">
+                        <p><strong>Name:</strong>${todo.name}</p>
+                        <p><strong>Description:</strong> ${ todo.description }</p>
+                        <p><strong>Complete:</strong> ${ todo.complete ? "완료" : "진행중" }</p>
+                        <p><strong>Completed At:</strong> ${ datetimeToString(todo.completed_at) }</p>
+                        <p><strong>Experience Points:</strong> ${ todo.exp }</p>
+                    </div>
+                    `
+                } else {
+
+                    // 완료되지 않은 Todo 항목이면 "완료" 버튼 추가
+                    todoElement = `
+                    <div class="todo-item" onclick="detailView(${todo.id})">
+                        <p><strong>Name:</strong>${todo.name}</p>
+                        <p><strong>Description:</strong> ${ todo.description }</p>
+                        <p><strong>Complete:</strong> ${ todo.complete ? "완료" : "진행중" }</p>
+                        <p><strong>Completed At:</strong> ${ datetimeToString(todo.completed_at) }</p>
+                        <p><strong>Experience Points:</strong> ${ todo.exp }</p>
+                        <button class="todoUpdate" onclick="toComplete(${todo.id})">완료</button>
+                    </div>
+                    `
+                }
+                 
+                // 생성한 HTML 요소를 화면에 추가
+                $(".todocontainer").append(todoElement)
+            }
+
+            // 페이지네이션 생성
+            var pagination = response.data;
+            var pageLinks = "";
+
+            // 페이지 수가 1보다 많을 때만 페이지 링크 생성
+            if (pagination.page_count > 1) {
+                var currentPage = pagination.current_page;
+                var totalPages = pagination.page_count;
+                var maxDisplayedPages = 10;
+
+                // 페이지 범위 계산 (최대 10개까지 보여줌)
+                var startPage = Math.max(1, currentPage - 5);
+                var endPage = Math.min(totalPages, currentPage + 5);
+                
+                // 앞쪽 페이지 부족할 경우 뒤쪽을 더 보여줌
+                if (currentPage - startPage < 5) {
+                    endPage = Math.min(endPage + (5 - (currentPage - startPage)), totalPages);
+                }
+                // 뒤쪽 페이지 부족할 경우 앞쪽을 더 보여줌
+                if (endPage - currentPage < 5) {
+                    startPage = Math.max(startPage - (5 - (endPage - currentPage)), 1);
+                }
+
+                // 각 페이지 번호 버튼 생성   
+                for (var i = startPage; i <= endPage; i++) {
+                    if (i === currentPage) { 
+
+                        // 현재 페이지는 active 클래스로 표시
+                        pageLinks += `<a href="#" class="active">${i}</a> `;
+                    } else {
+
+                        // 다른 페이지는 클릭 시 해당 페이지 로드
+                        pageLinks += `<a href="#" onclick="loadTodoList(${i})">${i}</a> `;
+                    }
+                }
+
+                // 생성한 페이지 링크를 .pagination 요소에 삽입
+                $(".pagination").html(pageLinks);
+            }
+                
+        })
+        .catch(function(error){
+
+            // 에러 발생 시 콘솔 출력
+            console.log(error)
+        })
+
+    }
+
+    // Todo 상세 페이지로 이동
+    function detailView(id){
+        window.location.href = `/todo/${id}/`;
+    }
+
+    // Todo를 완료 상태로 변경 (PATCH 요청)
+    function toComplete(pk){
+        axiosInstance.patch(`/api/todo/viewsets/${pk}/`,
+        {
+            complete: true,
+        })
+        .then(function(response){
+
+            // 완료 후 페이지 새로고침
+            window.location.reload()
+        })
+    }
+    
 </script>
+
 
 {% endblock %}

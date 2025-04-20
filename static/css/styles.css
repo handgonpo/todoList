@@ -149,3 +149,27 @@
     background-color: #0066cc;
   }
   
+ /* pagination */
+ .pagination {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination a {
+  color: #007bff;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.pagination a:hover,
+.pagination a.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination .disabled {
+  color: #888;
+  pointer-events: none;
+}
