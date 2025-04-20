@@ -1,2 +1,5 @@
 {% load static %}
-<h1>헤더입니다.</h1>
+<div class="header">
+    <h1><a href = "{% url 'base' %}">나의 Todo List</a></h1>
+    <p class="w800"><a href="{% url 'list' %}"> list 목록으로 이동</a> </p>
+</div>

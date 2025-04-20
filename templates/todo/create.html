@@ -31,12 +31,18 @@ $(document).ready(function () {
     // 버튼이 클릭된다면
     $("#todoCreate").on("click", function() {
         //console.log("클릭되었습니다.")
-        console.log($("#complete").val() === "on");
+        let exp = $("#exp").val();
+            if (exp === ""){
+                exp = 0;
+            }
         axiosInstance.post("/api/todo/create/", {
             name: $("#name").val(),
             description: $("#description").val(),
-            complete: $("#complete").val() === "on",
-            exp: $("#exp").val(),
+            // complete: $("#complete").val() === "on",
+            // val()은 <input type="checkbox">에서 "on" 또는 undefined 값을 반환하므로 다소 불안정합니다.
+            
+            complete: $("#complete").prop("checked"),
+            exp: exp, // 변수대입
         })
         .then(function(response) {
             window.location.href = "/todo/list/";

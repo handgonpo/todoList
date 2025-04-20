@@ -1,0 +1,151 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: #1c1c1e;
+    color: #f5f5f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+  }
+
+
+  /* 공통 컨테이너 */
+  .container, .todocontainer {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #2c2c2e;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  }
+  
+  h1, h2{
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+
+  .header {
+    max-width: 800px;
+    margin: 30px auto 10px auto;
+    text-align: left;
+  }
+  
+  .header p {
+    text-align: right;
+    font-size: 16px;
+  }
+  
+  .header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  
+  .header a {
+    font-weight: bold;
+    color: #f5f5f5;
+    text-decoration: none;
+  }
+
+  .footer{
+    text-align: center;
+    margin: 30px auto;
+    width: 800px;
+    margin: 0 auto;
+  }
+
+  .footer a {
+    color: #f5f5f5;
+    text-decoration: none;
+  }
+  
+  /* Label + Input Field */
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: #3a3a3c;
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  /* Checkbox */
+  input[type="checkbox"] {
+    transform: scale(1.3);
+    margin-top: 10px;
+  }
+  
+  /* Buttons */
+  button {
+    background-color: #ffcc00;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background-color: #e6b800;
+  }
+  
+  /* 목록 페이지 */
+  .todo-item {
+    background-color: #39393b;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    max-width: 800px;
+    margin: 10px auto;
+  }
+  
+  .todo-item:hover {
+    background-color: #48484a;
+  }
+
+  .w800{
+    width: 800px;
+  }
+  
+  /* 버튼 그룹 */
+  .btnList {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: flex-end;  /* 👉 오른쪽 정렬 */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* 등록 버튼 스타일 */
+  .todoCreate {
+    margin-bottom: 25px;
+    background-color: #0a84ff;
+    color: white;
+  }
+  
+  .todoCreate:hover {
+    background-color: #0066cc;
+  }
+  
