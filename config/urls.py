@@ -1,11 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from .views import HelloWorld
 
 
 urlpatterns = [
     # 첫페이지 추가
-    path("", views.hello_world, name='base'), # 127.0.0.1:8000/
+    path("", HelloWorld.as_view(), name='main'), # 127.0.0.1:8000/
 
     path('admin/', admin.site.urls),
 
@@ -15,4 +15,7 @@ urlpatterns = [
     # /api/todo/는 데이터 처리(API 전용)
     path("api/todo/", include("todo.api_urls")), # 127.0.0.1:8000/api/todo/
     # 둘 다 각자의 역할을 하며 동시에 작동합니다.
+
+    # login logout 추가
+    path('api-auth/', include('rest_framework.urls')), # 127.0.0.1:8000/api-auth/
 ]

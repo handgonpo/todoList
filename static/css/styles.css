@@ -173,3 +173,14 @@
   color: #888;
   pointer-events: none;
 }
+
+/*main*/
+.main{
+  max-width: 800px;
+  text-align: center;
+  height: 200px;
+  margin:0 auto;
+  background-color: #39393b;
+  margin:20px auto;
+  line-height:200px; /*높이 가운데*/
+}

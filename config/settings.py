@@ -142,3 +142,8 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS":"api.pagination.CustomPageNumberPagination",
     "PAGE_SIZE":4,
 }
+
+LOGIN_REDIRECT_URL = "/todo/list/" # 로그인 후 이동할 페이지
+LOGOUT_REDIRECT_URL = "/api-auth/login/" # 로그아웃 후 이동할 페이지
+# Django는 로그인/로그아웃 후에 기본적으로 이동할 페이지가 없으면 루트('/')로 리디렉트하거나 오류가 날 수 있어요.
+# 그래서 개발자가 원하는 페이지로 자동 이동시키기 위해 settings.py에 이 설정을 추가합니다.
